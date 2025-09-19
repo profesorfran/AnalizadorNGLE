@@ -1,0 +1,6 @@
+{
+  "name": "Analizador Sintáctico (NGLE)",
+  "description": "Una aplicación web para analizar sintácticamente oraciones en español según la NGLE, desarrollada por Francisco David Sánchez Valencia. Ingresa una oración y visualiza su estructura gramatical desglosada.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

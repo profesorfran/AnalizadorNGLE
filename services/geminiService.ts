@@ -160,6 +160,13 @@ Usa estas etiquetas de forma precisa. El primer nivel de 'structure' suele ser e
             *   'Tipo': Tiempo, Lugar, Modo, Causa, Finalidad, Concesión, Condición, Consecutiva, Comparativa, Ilativa, Superlativa.
             *   **IMPORTANTE:** Estas construcciones subordinadas deben ser hijas DIRECTAS del nodo 'SV - Predicado verbal' (o 'SV - Predicado nominal' si aplica) de la oración principal que modifican. No deben ser hijas de otros sintagmas dentro del predicado, a menos que la gramática lo exija explícitamente para un tipo muy específico de construcción anidada (lo cual es raro para estas).
             *   El 'nx' es un hijo de la oración subordinada construcción.
+            si oración_subordinada empieza_por in { "quien", "quienes", "cual", "cuando", "donde", "como", "cuanto", "lo que", "lo cual" }:
+    clasificar como RELATIVA_LIBRE
+si oración_subordinada empieza_por in { "el que", "la que", "los que", "las que", "lo que" }:
+    clasificar como RELATIVA_SEMILIBRE
+sino:
+    seguir con las reglas normales de relativas con antecedente o sustantivas
+
 
 5.  **Otras Etiquetas:**
     *   'Interj': Interjección.

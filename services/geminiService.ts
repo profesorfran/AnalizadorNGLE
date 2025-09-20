@@ -139,33 +139,106 @@ Usa estas etiquetas de forma precisa. El primer nivel de 'structure' suele ser e
             *   'SAdv - Término' (con núcleo interno 'Adv (N)')
             *   'Oración - Subordinada Sustantiva de Término'
 
-3.  **Oraciones Compuestas (Coordinadas):**
-    *   'Prop - Coordinada [Tipo]': Cada proposición coordinada.
-        *   'Tipo': Copulativa, Disyuntiva, Adversativa, Distributiva, Explicativa.
-        *   El 'nx' (nexo) debe estar fuera de las proposiciones.
-        *   Ejemplo de estructura para "Ana canta y Pedro baila":
-          \`[ {"text": "Ana canta", "label": "Prop - Coordinada Copulativa", ...}, {"text": "y", "label": "nx"}, {"text": "Pedro baila", "label": "Prop - Coordinada Copulativa", ...} ]\`
+ ANÁLISIS DE LA ORACIÓN COMPUESTA SEGÚN LA NGLE
 
-4.  **Oraciones Complejas (Subordinadas):**
-    *   **Subordinadas Sustantivas:**
-        *   'Oración - Subordinada Sustantiva de Sujeto', '... de CD', '... de Término', '... de Atributo'.
-        *   El 'nx' (que, si) es un hijo de la oración subordinada.
-        *   Una 'Oración - Subordinada Sustantiva de CD' es un tipo de CD.
-    *   **Subordinadas Relativas:**
-        *   'Oración - Subordinada Relativa Especificativa', '... Explicativa'.
-        *   Deben ser hijas del SN cuyo núcleo (\`N (N)\`) es el antecedente.
-        *   El pronombre/adverbio/determinante relativo ('PronRel', 'AdvRel', 'DetRel') es parte de la subordinada relativa y cumple una función DENTRO de ella.
-    *   **Subordinadas Construcciones (antes Adverbiales):**
-        *   'Oración - Subordinada Construcción de [Tipo]': Para construcciones (antes adverbiales).
-            *   'Tipo': Tiempo, Lugar, Modo, Causa, Finalidad, Concesión, Condición, Consecutiva, Comparativa, Ilativa, Superlativa.
-            *   **IMPORTANTE:** Estas construcciones subordinadas deben ser hijas DIRECTAS del nodo 'SV - Predicado verbal' (o 'SV - Predicado nominal' si aplica) de la oración principal que modifican. No deben ser hijas de otros sintagmas dentro del predicado, a menos que la gramática lo exija explícitamente para un tipo muy específico de construcción anidada (lo cual es raro para estas).
-            *   El 'nx' es un hijo de la oración subordinada construcción.
-            si oración_subordinada empieza_por in { "quien", "quienes", "cual", "cuando", "donde", "como", "cuanto", "lo que", "lo cual" }:
-    clasificar como RELATIVA_LIBRE
-si oración_subordinada empieza_por in { "el que", "la que", "los que", "las que", "lo que" }:
-    clasificar como RELATIVA_SEMILIBRE
-sino:
-    seguir con las reglas normales de relativas con antecedente o sustantivas
+---
+
+## 3. COORDINADAS
+La coordinación une oraciones del mismo nivel sintáctico, sin que unas dependan de otras.  
+Pueden estar ligadas por nexos coordinantes o yuxtapuestas por signos de puntuación.
+
+| Tipo | Función | Nexos | Ejemplo |
+|------|---------|-------|---------|
+| **Copulativas** | Expresan suma o adición | y, e, ni, ni…ni, tanto…como, tanto…cuanto, así…como, lo mismo…que, no solo…sino que también | *Mis vecinos lo vieron **y** no le dijeron nada.* |
+| **Disyuntivas** | Expresan alternativa o exclusión | o (u), o…o, bien…bien, ya…ya, sea…sea | *¿Quieres café **o** prefieres chocolate?* |
+| **Adversativas** | Expresan oposición de ideas | pero, sino, sino que, aunque (≃ pero) | *Se lo dije, **pero** no me hizo caso.* |
+| **Yuxtapuestas** | No hay nexo, se separan por puntuación | ( ; , : … ) | *Era tarde; nos fuimos.* |
+
+---
+
+## 4. SUBORDINADAS
+Hay relación de dependencia entre principal y subordinada.  
+La subordinada se integra como constituyente de la principal o la modifica.
+
+### 4.1. Sustantivas
+**Definición:** equivalen a un sustantivo o grupo nominal. Se pueden conmutar por “eso”, “algo”, “alguien”.  
+**Notas:**  
+- El nexo *que* suele ser “completivo” (no cumple función dentro de la subordinada).  
+- En interrogativas/exclamativas indirectas, el nexo sí ejerce función sintáctica.
+
+| Función | Nexos | Ejemplo |
+|---------|-------|---------|
+| **Sujeto** | que / interrogativas / infinitivo | *Me gusta **que hayas estudiado** Historia.* |
+| **CD** | que / interrogativas (si, quién, qué, cuál, cuándo, cómo, cuánto, dónde) / exclamativas / infinitivo | *Ellos deseaban **que les subieran el sueldo**.* |
+| **Atributo** | que / infinitivo | *El problema es **que no sé la respuesta**.* |
+| **Término de preposición (CI)** | prep + que | *No daba crédito **a que sacaría un diez**.* |
+| **Término de preposición (C. Régimen)** | prep + que / prep + infinitivo | *No se acordaba **de que no lo había hecho**.* |
+| **Término de preposición (CC)** | prep + que / prep + infinitivo | *Entraron **sin que nadie se percatara**.* |
+| **Término de preposición (CN, C. Adj, C. Adv)** | prep + que / prep + infinitivo | *Estoy harto **de que tardes tanto en llegar**.* |
+| **Aposición** | grupo nominal + “que” | *Os digo una cosa: **que tengáis cuidado*** |
+
+---
+
+### 4.2. Relativas
+
+| Tipo | Nexos | Ejemplo | Función |
+|------|-------|---------|---------|
+| **Con antecedente expreso** | que, quien, el/la cual, los/las cuales, donde, como, cuando, cuyo/a/os/as | *La profesora corrigió los exámenes **que habían entregado tarde*** | CN del antecedente |
+| **Sin antecedente expreso (libres)** | quien, quienes, cuanto/a/os/as, lo que, lo cual, donde, como, cuando | *Quien bien te quiere, te hará llorar.* <br> *No entiendo **lo que me dijiste***. <br> *Iremos **donde quieras***. <br> *Hazlo **como te parezca mejor***. | Sujeto / CD / CCL / CCM |
+| **Sin antecedente expreso (semilibres)** | el que, la que, los que, las que, lo que | *El que avisa no es traidor.* <br> *Vi a los que estaban en clase.* <br> *Dormiré en la que tiene vistas al mar.* <br> *Lo que más me preocupa es el examen.* | Sujeto / CD / CCL / Atributo |
+
+---
+
+#### Teoría ampliada sobre las relativas libres y semilibres
+
+🔹 **Relativas libres**
+- Carecen de antecedente expreso: el propio relativo encierra el valor nominal (*quien = la persona que*, *donde = el lugar en el que*).  
+- Son equivalentes a un **sintagma sustantivo** y por eso pueden desempeñar **todas las funciones propias del nombre**:  
+  - Sujeto (**Quien bien te quiere**, te hará llorar).*   
+  - CCL (**Iremos **donde quieras**).*  
+  - CCM (*Hazlo **como te parezca mejor**).*  
+- Pueden conmutarse por un grupo nominal con determinante: *Quien dice eso* ≈ *La persona que dice eso*.  
+
+🔹 **Relativas semilibres**
+- Formadas por **artículo determinado + que** (*el que, la que, los que, las que, lo que*).  
+- Funcionan como **grupos nominales completos**.  
+- Usos frecuentes:  
+  - **Sujeto** (**El que avisa** no es traidor).*  
+  - **CD** (*Vi **a los que estaban en clase***).* 
+  - **CCL** (*Dormiré en **la que tiene vistas al mar**).*  
+  - **Atributo** (*Lo que más me preocupa es el examen*).*
+- Equivalen semánticamente a expresiones como *aquel que*, *aquella que*, *los que*, *lo que*.  
+
+🔹 **Notas generales (NGLE)**  
+- El relativo funciona siempre como **conector y elemento interno de la subordinada** (ej.: *lo que me dijiste* → *lo* = antecedente implícito, *que* = pronombre relativo con función de CD).  
+- Las libres y semilibres se reconocen porque no hay un antecedente expreso en la principal, pero **mantienen la estructura propia de las adjetivas**.  
+- En muchos casos, su valor semántico es general o indeterminado: *quien* = “cualquiera que”, *donde* = “en cualquier lugar en el que”.  
+
+⚠️ **Nota fundamental (NGLE):**  
+Las oraciones relativas **libres y semilibres nunca son sustantivas ni “sustantivadas”**. La gramática tradicional las clasificaba así, pero la NGLE insiste en que deben entenderse siempre como **oraciones de relativo**, aunque aparezcan sin antecedente expreso.
+
+
+---
+
+### 4.3. Construcciones 
+**Definición:** la NGLE llama “construcciones” a las subordinadas que expresan valores circunstanciales de tiempo, modo, causa, finalidad, etc.  
+**Notas:**  
+- Funcionan globalmente como complementos circunstanciales o modificadores.  
+- Se reconocen porque responden a preguntas del tipo “¿cuándo?”, “¿cómo?”, “¿por qué?”, “¿para qué?”, etc.
+
+| Tipo | Función | Nexos | Ejemplo |
+|------|---------|-------|---------|
+| **Temporales** | CCT | mientras, hasta que, desde que, antes de que, luego de que, hacer que, al + infinitivo, gerundio, participio | *Mientras que estudias, voy a la tienda.* |
+| **Modales** | CCM | según, conforme, tal y como, gerundio | *Hazlo según indica el manual.* |
+| **Causales** | Causa | porque, ya que, a causa de que, dado que, puesto que, gracias a que, etc. | *Miguel se fue porque estaba cansado.* |
+| **Finales** | Finalidad | para que, a fin de que, con objeto de que, para + infinitivo | *Expliqué despacio **para que** lo entendieran.* |
+| **Ilativas** | Consecuencia lógica | así que, de modo que, de manera que, luego, conque, pues | *Está lloviendo, **así que** coge un paraguas.* |
+| **Consecutivas** | Consecuencia intensiva | tan…que, tanto…que, tal…que | *Ha corrido tanto que ha llegado exhausto.* |
+| **Concesivas** | Oposición | aunque, pese a que, a pesar de que, si bien, aun + gerundio/participio | *Aunque sea difícil, lo conseguiremos.* |
+| **Condicionales** | Condición | si, siempre que, a condición de que, en el caso de que, gerundio, participio | *Si apruebo el curso, me regalan un móvil.* |
+| **Comparativas** | Comparación | tan…como, tanto…como, más…que, menos…que, igual…que | *Ángela ha leído más novelas que José.* |
+| **Superlativas** | Grado máximo | el/la/los/as más…que, menos…que, tan…como | *Este es el chiste más gracioso que he oído.* |
+
 
 
 5.  **Otras Etiquetas:**
